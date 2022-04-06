@@ -24,7 +24,7 @@ pipeline {
                    def imagever = readFile(file: '/mnt/img-ver')
                    println(imagever)
 		           echo "$imagever"
-	               dockerImage = docker.build(nemo_images + ":imagever")
+	               dockerImage = docker.build(nemo_images + ":$imagever")
                }
                 
             }
