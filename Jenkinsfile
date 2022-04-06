@@ -27,7 +27,7 @@ pipeline {
 	       //    dockerImage = docker.build(nemo_images + ":" + ${imagever} )
             //    echo env.imagever
            
-            sh 'docker build -t repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_NUMBER}'
+            sh 'imagever=`/mnt/img-ver`; docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
                //     }
                 
             }
