@@ -2,7 +2,8 @@ pipeline {
 	environment {
 	dockerImage = ''
 	registryCredential = 'gitlab_id'
-	nemo_images = "repository.usenemo.com:5000/nemo/nemo_engine"
+    def imagever = readFile(file: '/mnt/img-ver')
+	nemo_images = "repository.usenemo.com:5000/nemo/nemo_engine:imagever"
    
 	}
     agent any 
@@ -22,13 +23,13 @@ pipeline {
         stage('Build_image') {
             steps {
                
-             //script {
-           //     def imagever = readFile(file: '/mnt/img-ver')
-	       //    dockerImage = docker.build(nemo_images + ":" + ${imagever} )
-            //    echo env.imagever
+            script {
+               def imagever = readFile(file: '/mnt/img-ver')
+	          dockerImage = docker.build(nemo_images )
+              echo env.imagever
            
-            sh 'imagever=`cat /mnt/img-ver`;cd Jenkins-testing;  docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
-               //     }
+            //sh 'imagever=`cat /mnt/img-ver`;cd Jenkins-testing;  docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
+                    }
                 
             }
         }
