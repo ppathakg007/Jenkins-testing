@@ -45,7 +45,7 @@ pipeline {
         }
 		stage('Send Notification') {
             steps {
-                sh 'echo done'
+                sh 'echo "$dockerImage"'
             }
         }
     }
