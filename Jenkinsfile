@@ -24,7 +24,7 @@ pipeline {
                
             script {
               //echo env.nemo_images
-              dockerImage = docker.build(nemo_images + ":env.BUILD_NUMBER" )
+              dockerImage = docker.build("nemo_images:${env.BUILD_ID}" )
               
            
             //sh 'imagever=`cat /mnt/img-ver`;cd Jenkins-testing;  docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
