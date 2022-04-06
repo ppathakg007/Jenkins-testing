@@ -34,7 +34,7 @@ pipeline {
                 script {
                     
                     def imagever = readFile(file: '/mnt/img-ver')
-		    docker.withRegistry( '', registryCredential ) 
+		    docker.withRegistry( 'repository.usenemo.com:5000/nemo/nemo_engine', registryCredential ) 
 		    dockerImage.push()
                 }
             }
