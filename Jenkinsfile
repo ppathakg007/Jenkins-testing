@@ -39,6 +39,7 @@ pipeline {
             def imagever = dockerImage
 		    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
 		    dockerImage.push()
+            echo "$dockerImage"
             writeFile(file: '/mnt/img-ver', text: imagever)
             }
                 }
