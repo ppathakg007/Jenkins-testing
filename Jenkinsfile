@@ -24,6 +24,7 @@ pipeline {
                 script {
 
 	               dockerImage = docker.build(nemo_images + ':env.imagever')
+                   echo env.imagever
                }
                 
             }
