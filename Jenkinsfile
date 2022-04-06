@@ -36,9 +36,10 @@ pipeline {
             steps {
                 script {
                     
-                    def imagever = readFile(file: '/mnt/img-ver')
+            def imagever = dockerImage
 		    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
 		    dockerImage.push()
+            writeFile(file: '/mnt/img-ver', text: imagever)
             }
                 }
             }
