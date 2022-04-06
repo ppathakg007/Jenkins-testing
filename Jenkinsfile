@@ -22,13 +22,13 @@ pipeline {
         stage('Build_image') {
             steps {
                
-             script {
-                def imagever = readFile(file: '/mnt/img-ver')
-	           dockerImage = docker.build(nemo_images + ":" + ${imagever} )
-                echo env.imagever
+             //script {
+           //     def imagever = readFile(file: '/mnt/img-ver')
+	       //    dockerImage = docker.build(nemo_images + ":" + ${imagever} )
+            //    echo env.imagever
            
-           // sh 'docker build -t repository.usenemo.com:5000/nemo/nemo_engine:env.imagever'
-                    }
+            sh 'docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
+               //     }
                 
             }
         }
