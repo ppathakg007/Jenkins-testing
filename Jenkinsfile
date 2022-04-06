@@ -24,7 +24,7 @@ pipeline {
                
              script {
                 def imagever = readFile(file: '/mnt/img-ver')
-	           dockerImage = docker.build(nemo_images + ":env.imagever")
+	           dockerImage = docker.build(nemo_images + ":" + env.imagever)
                 echo env.imagever
            
            // sh 'docker build -t repository.usenemo.com:5000/nemo/nemo_engine:env.imagever'
