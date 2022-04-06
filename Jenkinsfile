@@ -3,7 +3,7 @@ pipeline {
 	dockerImage = ''
 	registryCredential = 'gitlab_id'
     def imagever = readFile(file: '/mnt/img-ver')
-	nemo_images = "repository.usenemo.com:5000/nemo/nemo_engine:imagever"
+	nemo_images = "repository.usenemo.com:5000/nemo/nemo_engine:$imagever"
    
 	}
     agent any 
@@ -26,7 +26,7 @@ pipeline {
             script {
                def imagever = readFile(file: '/mnt/img-ver')
 	          dockerImage = docker.build(nemo_images )
-              echo env.imagever
+              echo env.nemo_images
            
             //sh 'imagever=`cat /mnt/img-ver`;cd Jenkins-testing;  docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
                     }
