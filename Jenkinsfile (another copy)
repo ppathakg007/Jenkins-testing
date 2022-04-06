@@ -22,11 +22,9 @@ pipeline {
         stage('Build_image') {
             steps {
                
-            //    script {
-	         //      dockerImage = docker.build(nemo_images + ":$env.imagever")
-            //      echo env.imagever
-            //
-            sh 'docker build -t repository.usenemo.com:5000/nemo/nemo_engine:env.imagever'
+                script {
+	               dockerImage = docker.build(nemo_images + ":$env.imagever")
+                  echo env.imagever
                     }
                 
             }
