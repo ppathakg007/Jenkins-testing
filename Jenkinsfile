@@ -21,11 +21,11 @@ pipeline {
         }
         stage('Build_image') {
             steps {
-                script {
+               
 
-	               dockerImage = docker.build(nemo_images + :env.imagever)
+	               dockerImage = docker.build(nemo_images + : "env.imagever")
                   
-               }
+              
                 
             }
         }
