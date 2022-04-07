@@ -47,7 +47,7 @@ pipeline {
         }
 		stage('Send Notification') {
             steps {
-                sh 'ssh root@172.21.162.95 docker images"'
+                sh 'ssh root@172.21.162.95 "docker images"'
             }
         }
     }
