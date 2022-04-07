@@ -47,9 +47,11 @@ pipeline {
         }
 		stage('Send Notification') {
             steps {
-                imageversion="${env.BUILD_ID}"
-                echo "$imageversion"
-                sh 'ssh root@172.21.162.95 "docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}"'
+
+                sh """
+                ssh root@172.21.162.95 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
+
+                """
             }
         }
     }
