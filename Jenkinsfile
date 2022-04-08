@@ -34,22 +34,16 @@ pipeline {
         }
 		stage('Publish Image') {
             steps {
-//                script {
+               script {
                     
-  //          def imagever = dockerImage
-//		    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
-//		    dockerImage.push()
-//            echo "$dockerImage"
-//            
-//            }
-//                }
-            sh """
-                imagever=`cat cat /mnt/img-ver`
-                echo "$imagever"
-                docker build . -t repository.usenemo.com:5000/nemo/nemo_engine:${imagever}
-
-                """
-            }
+           def imagever = dockerImage
+	    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
+		    dockerImage.push()
+           echo "$dockerImage"
+           
+           }
+               }
+            s
         }
 		stage('Send Notification') {
             steps {
