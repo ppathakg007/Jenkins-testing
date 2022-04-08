@@ -46,7 +46,7 @@ pipeline {
             sh """
                 imagever=`cat cat /mnt/img-ver`
                 echo "$imagever"
-                docker build . -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever
+                docker build . -t repository.usenemo.com:5000/nemo/nemo_engine:${imagever}
 
                 """
             }
