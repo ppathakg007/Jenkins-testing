@@ -62,7 +62,8 @@ pipeline {
 
                 """
             }
-        }stage('pull image on Prodengine') {
+        }
+        stage('pull image on Prodengine') {
             steps {
 
                 sh """
