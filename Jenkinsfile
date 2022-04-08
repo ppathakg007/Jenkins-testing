@@ -45,7 +45,7 @@ pipeline {
                }
             
         }
-		stage('pull image on Devengine') {
+		stage('Pull image on Devengine') {
             steps {
 
                 sh """
@@ -54,7 +54,7 @@ pipeline {
                 """
             }
         }
-        stage('pull image on Corpusengine') {
+        stage('Pull image on Corpusengine') {
             steps {
 
                 sh """
@@ -63,7 +63,7 @@ pipeline {
                 """
             }
         }
-        stage('pull image on Prodengine') {
+        stage('Pull image on Prodengine') {
             steps {
 
                 sh """
