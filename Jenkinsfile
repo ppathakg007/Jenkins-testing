@@ -22,21 +22,19 @@ pipeline {
         stage('Build_image') {
             steps {
                
-            script {
+             script {
               //echo env.nemo_images
               dockerImage = docker.build(nemo_images + ":${env.BUILD_ID}" )
-              
-           
+                         
             //sh 'imagever=`cat /mnt/img-ver`;cd Jenkins-testing;  docker build -t repository.usenemo.com:5000/nemo/nemo_engine:$imagever'
                     }
                 
             }
         }
-		stage('Publish Image') {
+	stage('Publish Image') {
             steps {
                script {
-                    
-           def imagever = dockerImage
+           
 	    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
 		    dockerImage.push()
           
@@ -45,7 +43,7 @@ pipeline {
                }
             
         }
-		stage('Pull image on Devengine') {
+	stage('Pull image on Devengine') {
             steps {
 
                 sh """
@@ -65,8 +63,8 @@ pipeline {
                 """
             }
         }
-        stage('Pull image on Prodengine') {
-            steps {
+    stage('Pull image on Prodengine') {
+           steps {
 
                 sh """
                 ssh -o StrictHostKeyChecking=no root@172.31.43.69 'bash /mnt/jenkins_precheck_space.sh'
