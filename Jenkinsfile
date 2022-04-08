@@ -58,7 +58,7 @@ pipeline {
             steps {
 
                 sh """
-                ssh -o StrictHostKeyChecking=no root@172.21.162.26 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
+                ssh -o StrictHostKeyChecking=no root@172.31.26.43 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
 
                 """
             }
