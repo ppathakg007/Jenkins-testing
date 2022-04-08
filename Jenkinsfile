@@ -40,7 +40,7 @@ pipeline {
 	    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
 		    dockerImage.push()
           
-           
+        }
            }
                }
             
