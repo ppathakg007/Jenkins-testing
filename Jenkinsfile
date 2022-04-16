@@ -21,7 +21,7 @@ pipeline {
         }
          stage('checking') { 
             steps { 
-                sh 'pwd*' 
+                sh ' pwd ' 
 		sh ' ls -ltr '
             }
         }
