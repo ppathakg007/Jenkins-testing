@@ -37,7 +37,7 @@ pipeline {
                 
             }
         }
-	stage('Publish Image') {
+/*	stage('Publish Image') {
             steps {
                script {
            
@@ -79,5 +79,5 @@ pipeline {
                 """
             }
         }
-    }
+    } */
 }
