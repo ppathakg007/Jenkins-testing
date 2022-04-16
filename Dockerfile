@@ -49,3 +49,4 @@ WORKDIR /home/agent
 
 # create engine folder in root and copy files
 RUN mkdir engine/
+COPY --chown=agent:agent ./* engine/
