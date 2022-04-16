@@ -1,0 +1,34 @@
+if [ "$Nemo_engine_env" = "Dev_Engine" ];  then
+	echo " You are deploying in Development env"
+
+elif [ "$Nemo_engine_env" = "Corpus_Engine" ];  then
+	 echo "You are deploying in Corpus env"
+     
+     nxtimgver=`ssh -o StrictHostKeyChecking=no root@172.31.26.43 "docker images | grep -i repository.usenemo | head -1" | awk '{print $2}'`
+    
+     	     rningcont=` ssh -o StrictHostKeyChecking=no root@172.31.26.43 " docker ps | grep -i nemo" | awk '{print $1}'`
+       	 
+          if [ -z "$rningcont" ]
+          then
+            echo "There is no container running.Strating container with image version :- $nxtimgver"
+             ssh ssh -o StrictHostKeyChecking=no root@172.31.26.43 "cd /deployment/;docker run -d   --rm --shm-size=1g --env-file /deployment/.env --net=host --hostname=nemoengine --memory=14g --memory-reservation=14g --cpus=3 --name=nemoengine --privileged=true --entrypoint /home/agent/engine/engine_init.sh -i repository.usenemo.com:5000/nemo/nemo_engine:$nxtimgver"
+          else
+            echo " There is a container running.Container id running :- $rningcont"
+            echo "Stopping container :-  $rningcont"
+            #ssh -o StrictHostKeyChecking=no root@172.31.26.43 " docker stop  $rningcont"
+            sleep 1
+            echo "Starting container"
+             ssh root@$172.31.26.43 "cd /deployment/;docker run -d   --rm --shm-size=1g --env-file /deployment/.env --net=host --hostname=nemoengine --memory=14g --memory-reservation=14g --cpus=3 --name=nemoengine --privileged=true --entrypoint /home/agent/engine/engine_init.sh -i repository.usenemo.com:5000/nemo/nemo_engine:$nxtimgver"
+            sleep 1
+            echo "Container started with image :- $nxtimgver"
+	    ssh -o StrictHostKeyChecking=no root@172.31.26.43 " docker ps | grep -i nemo"
+         fi
+
+ elif [ "$Nemo_engine_env" = "Prod_Engine" ];  then
+         echo "You are deploying in Production env"
+
+else
+	 echo "You are deploying in Invalid env :- $depenv"
+	 echo -e "Please use Command: \n bash nemoenginedeploy.sh prd" 
+	 echo -e "Please use Command: \n bash nemoenginedeploy.sh dev" 
+fi

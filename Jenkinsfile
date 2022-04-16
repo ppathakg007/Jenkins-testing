@@ -19,6 +19,12 @@ pipeline {
                 sh 'git clone --recurse-submodules git@github.com:unmeeting/Jenkins-teting.git'
             }
         }
+         stage('Precheck') { 
+            steps { 
+                sh 'pwd*' 
+		sh ' ls -ltr '
+            }
+        }
         stage('Build_image') {
             steps {
                

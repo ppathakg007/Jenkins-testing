@@ -1,0 +1,40 @@
+  
+	nxtimgver=`ssh -o StrictHostKeyChecking=no root@172.31.26.43 "docker images | grep -i repository.usenemo | head -1 | awk '{print $2}'"`
+    
+     	     rningcont=` ssh -o StrictHostKeyChecking=no root@172.31.26.43 " docker ps | grep -i nemo" | awk '{print $1}'`
+       	 
+          if [ -z "$rningcont" ]
+          then
+            echo "There is no container running.Strating container with image version :- $nxtimgver"
+             ssh ssh -o StrictHostKeyChecking=no root@172.31.26.43 "cd /deployment/nemo_engine.$nxtimgver;docker run -d   --rm --shm-size=1g --env-file /deployment/.env --net=host --hostname=nemoengine --memory=14g --memory-reservation=14g --cpus=3 --name=nemoengine --privileged=true --entrypoint /home/agent/engine/engine_init.sh -i nemo_engine:$nxtimgver"
+          else
+            echo " There is a container running.Container id running :- $rningcont"
+            echo "Stopping container :-  $rningcont"
+            ssh ssh -o StrictHostKeyChecking=no root@172.31.26.43 " docker stop  $rningcont"
+            sleep 1
+            echo "Starting container"
+             ssh root@$srvr "cd /deployment/nemo_engine.$nxtimgver;docker run -d --gpus all  --rm --shm-size=1g --env-file /deployment/.env --net=host --hostname=nemoengine --memory=14g --memory-reservation=14g --cpus=3 --name=nemoengine --privileged=true --entrypoint /home/agent/engine/engine_init.sh -i nemo_engine:$nxtimgver"
+            sleep 1
+            echo "Container started with image :- $nxtimgver"
+	    ssh  ssh -o StrictHostKeyChecking=no root@172.31.26.43 " docker ps | grep -i nemo"
+         fi
+ else
+	      rningcont=` ssh  root@$srvr " docker ps | grep -i nemo" | awk '{print $1}'`
+         echo "$rningcont"
+          if [ -z "$rningcont" ]
+          then
+            echo "There is no container running.Strating container with image version :- $nxtimgver"
+             ssh root@$srvr "cd /deployment/nemo_engine.$nxtimgver;docker run -d --rm --shm-size=1g --env-file /deployment/.env --net=host --hostname=nemoengine --memory=14g --memory-reservation=14g --cpus=3 --name=nemoengine --privileged=true --entrypoint /home/agent/engine/engine_init.sh -i nemo_engine:$nxtimgver"
+          else
+            echo " There is a container running.Container id running :- $rningcont"
+            echo "Stopping container :-  $rningcont"
+            ssh root@$srvr " docker stop  $rningcont"
+            sleep 1
+            echo "Starting container"
+             ssh root@$srvr "cd /deployment/nemo_engine.$nxtimgver;docker run -d  --rm --shm-size=1g --env-file /deployment/.env --net=host --hostname=nemoengine --memory=14g --memory-reservation=14g --cpus=3 --name=nemoengine --privileged=true --entrypoint /home/agent/engine/engine_init.sh -i nemo_engine:$nxtimgver"
+            sleep 1
+            echo "Container started with image :- $nxtimgver"
+	    ssh  root@$srvr " docker ps | grep -i nemo"
+         fi
+	fi
+ 
