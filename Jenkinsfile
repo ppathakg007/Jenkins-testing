@@ -37,12 +37,12 @@ pipeline {
                 
             }
         }
-/*	stage('Publish Image') {
+	stage('Publish Image') {
             steps {
                script {
            
 	    docker.withRegistry( 'http://repository.usenemo.com:5000' ) {
-		    dockerImage.push()
+//		    dockerImage.push()
           
         }
            }
@@ -53,7 +53,7 @@ pipeline {
             steps {
 
                 sh """
-                ssh -o StrictHostKeyChecking=no root@172.21.162.95 'bash /mnt/jenkins_precheck_space.sh'
+               ssh -o StrictHostKeyChecking=no root@172.21.162.95 'bash /mnt/jenkins_precheck_space.sh'
                 ssh -o StrictHostKeyChecking=no root@172.21.162.95 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
 
                 """
@@ -79,5 +79,5 @@ pipeline {
                 """
             }
         }
-    } */
+    } 
 }
