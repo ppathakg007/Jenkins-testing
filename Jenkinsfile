@@ -49,35 +49,26 @@ pipeline {
                }
             
         }
-	stage('Pull image on Devengine') {
-            steps {
-
-                sh """
-               ssh -o StrictHostKeyChecking=no root@172.21.162.95 'bash /mnt/jenkins_precheck_space.sh'
-                ssh -o StrictHostKeyChecking=no root@172.21.162.95 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
-
-                """
-            }
-        }
-        stage('Pull image on Corpusengine') {
-            steps {
-
-                sh """
-                ssh -o StrictHostKeyChecking=no root@172.31.26.43 'bash /mnt/jenkins_precheck_space.sh'
-                ssh -o StrictHostKeyChecking=no root@172.31.26.43 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
-
-                """
-            }
-        }
-    stage('Pull image on Prodengine') {
-           steps {
-
-                sh """
-                ssh -o StrictHostKeyChecking=no root@172.31.43.69 'bash /mnt/jenkins_precheck_space.sh'
-                ssh -o StrictHostKeyChecking=no root@172.31.43.69 'docker pull repository.usenemo.com:5000/nemo/nemo_engine:${env.BUILD_ID}'
-
-                """
-            }
-        }
+	
+        
+    
     } 
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+    }
 }
