@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.1.1-base-ubuntu20.04
+#FROM nvidia/cuda:11.1.1-base-ubuntu20.04
+FROM nvidia/cuda:11.1.1-base-ubuntu20.04.434324.234324
 EXPOSE 5000
 
 # Set working directory and configure TimeZone
