@@ -57,10 +57,12 @@ pipeline {
         
         success {
             echo 'I succeeded!'
+         sh '   /mnt/build-notify/jenkins-notification.sh succesed '
         }
       
         failure {
             echo 'I failed :('
+            sh '/mnt/build-notify/jenkins-notification.sh Failed '
         }
         
     }
